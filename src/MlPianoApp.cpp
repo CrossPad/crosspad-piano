@@ -382,7 +382,7 @@ void _register_MLPiano_app() {
 
     static const crosspad::AppEntry entry = {
         "MLPiano", icon_path, MlPiano_create, MlPiano_destroy,
-        nullptr, nullptr, nullptr, nullptr, 0
+        0
     };
     crosspad::AppRegistry::getInstance().registerApp(entry);
 }
