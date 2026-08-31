@@ -15,8 +15,9 @@
 #include "pc_stubs/PcApp.hpp"
 #include "pc_stubs/pc_platform.h"
 
-#include <crosspad/app/AppRegistry.hpp>
+#include <crosspad/app/AppRegistrar.hpp>
 #include <crosspad/pad/PadManager.hpp>
+#include "crosspad-gui/components/app_icon.h"
 #include "crosspad-gui/components/app_lifecycle.h"
 #include "crosspad-gui/platform/IGuiPlatform.h"
 #include "crosspad_app.hpp"
@@ -375,14 +376,6 @@ void MlPiano_destroy(lv_obj_t* app_obj)
 
 /* ── App registration ────────────────────────────────────────────────── */
 
-void _register_MLPiano_app() {
-    static char icon_path[256];
-    snprintf(icon_path, sizeof(icon_path), "%spiano.png",
-             crosspad_gui::getGuiPlatform().assetPathPrefix());
-
-    static const crosspad::AppEntry entry = {
-        "MLPiano", icon_path, MlPiano_create, MlPiano_destroy,
-        0
-    };
-    crosspad::AppRegistry::getInstance().registerApp(entry);
-}
+REGISTER_APP(MLPiano, nullptr, crosspad_gui::resolveAppIcon("piano.png"),
+             MlPiano_create, MlPiano_destroy,
+             nullptr, nullptr, nullptr, 0)
