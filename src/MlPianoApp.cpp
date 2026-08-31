@@ -344,13 +344,13 @@ lv_obj_t* MlPiano_create(lv_obj_t* parent, App* a)
     updateOctaveLabel();
 
     /* ── Lifecycle callbacks ─────────────────────────────────── */
+    // Pad logic activation/restore is framework-owned (see REGISTER_APP_PL
+    // below) — these only refresh the pad-icon indicator.
     if (a) {
         a->setOnShow([](lv_obj_t*) {
-            crosspad::getPadManager().setActivePadLogic("MLPiano");
             crosspad_app_update_pad_icon();
         });
         a->setOnHide([](lv_obj_t*) {
-            crosspad::getPadManager().setActivePadLogic("");
             crosspad_app_update_pad_icon();
         });
     }
@@ -361,7 +361,6 @@ lv_obj_t* MlPiano_create(lv_obj_t* parent, App* a)
 
 void MlPiano_destroy(lv_obj_t* app_obj)
 {
-    crosspad::getPadManager().setActivePadLogic("");
     crosspad::getPadManager().unregisterPadLogic("MLPiano");
     crosspad_app_update_pad_icon();
     s_padLogic = nullptr;
@@ -376,6 +375,6 @@ void MlPiano_destroy(lv_obj_t* app_obj)
 
 /* ── App registration ────────────────────────────────────────────────── */
 
-REGISTER_APP(MLPiano, nullptr, crosspad_gui::resolveAppIcon("piano.png"),
-             MlPiano_create, MlPiano_destroy,
-             nullptr, nullptr, nullptr, 0)
+REGISTER_APP_PL(MLPiano, nullptr, crosspad_gui::resolveAppIcon("piano.png"),
+                MlPiano_create, MlPiano_destroy,
+                nullptr, nullptr, nullptr, 0, "MLPiano")
