@@ -1,17 +1,18 @@
 {
   "name": "Piano",
   "id": "piano",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Synth piano with parameter sliders, presets, octave control",
   "category": "music",
   "icon": "piano.png",
   "component_path": "components/crosspad-piano",
   "platforms": ["pc"],
   "requires": {
-    "crosspad-core": ">=0.3.0",
-    "crosspad-gui": ">=0.2.0"
+    "crosspad-core": "^2.0.0",
+    "crosspad-gui": "^2.0.0"
   },
   "changelog": [
+    "0.1.1: a root deleted before the app's teardown is handled (gui 2.0 calls destroy with none); requires core 2.0 and gui 2.0",
     "0.1.0: Initial release — ADSR sliders, presets, octave +/- buttons"
   ]
 }
