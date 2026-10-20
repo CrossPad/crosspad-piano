@@ -369,7 +369,7 @@ void MlPiano_destroy(lv_obj_t* app_obj)
     s_presetDropdown = nullptr;
     thisApp = nullptr;
 
-    lv_obj_delete_async(app_obj);
+    if (app_obj) lv_obj_delete_async(app_obj);
     printf("[MlPiano] App destroyed\n");
 }
 
