@@ -225,7 +225,11 @@ lv_obj_t* MlPiano_create(lv_obj_t* parent, App* a)
     lv_obj_set_style_pad_all(cont, 4, 0);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_style_pad_row(cont, 2, 0);
-    lv_obj_remove_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
+    /* The rows take 240 px and the app area under the 40 px top bar is 200:
+     * the column scrolls, so Feedback and the octave keys stay reachable
+     * (the encoder's focus scrolls them into view). */
+    lv_obj_set_scroll_dir(cont, LV_DIR_VER);
+    lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_AUTO);
 
     /* ── Title bar with close button ─────────────────────────── */
     lv_obj_t* titleBar = lv_obj_create(cont);
